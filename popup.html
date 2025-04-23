@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API ENDPOINT FINDER</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container p-3">
+        <h1 class="h4 mb-3">API Endpoint Finder</h1>
+        
+        <div class="mb-3">
+            <label class="form-label">Filtrar por estado:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="filter200" checked>
+                <label class="form-check-label text-success" for="filter200">200</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="filter404">
+                <label class="form-check-label text-secondary" for="filter404">404</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="filter500">
+                <label class="form-check-label text-danger" for="filter500">5XX</label>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="apiUrl" class="form-label">URL Base de la API:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="apiUrl" placeholder="https://ejemplo.com">
+                <button class="btn btn-outline-secondary" type="button" id="detectWordpress">Detectar WordPress</button>
+            </div>
+            <div class="form-text">Para sitios WordPress, generalmente es el dominio principal (https://ejemplo.com)</div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="endpointType" class="form-label">Tipo de Endpoints:</label>
+            <select class="form-select" id="endpointType">
+                <option value="standard" selected>Endpoints Estandar</option>
+                <option value="wordpress">Endpoints WordPress</option>
+                <option value="mixed">Mixto (WordPress + Estandar)</option>
+            </select>
+        </div>
+        
+        <div id="wpOptionsContainer" class="mb-3 d-none">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="wordpressMode" checked>
+                <label class="form-check-label" for="wordpressMode">Modo WordPress</label>
+            </div>
+            <div class="form-text">Optimizado para sitios WordPress y WooCommerce</div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="concurrency" class="form-label">Concurrencia:</label>
+            <input type="number" class="form-control" id="concurrency" value="10" min="1" max="50">
+            <div class="form-text">Numero de peticiones simultaneas (mayor velocidad pero puede causar errores)</div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="limit" class="form-label">Limite de endpoints a probar:</label>
+            <input type="number" class="form-control" id="limit" value="2603" min="1" max="2663">
+        </div>
+        
+        <div class="d-flex gap-2">
+            <button id="startButton" class="btn btn-warning mb-3">Iniciar Prueba</button>
+            <button id="stopButton" class="btn btn-danger mb-3" disabled>Detener</button>
+            <button id="exportButton" class="btn btn-secondary mb-3" disabled>Exportar CSV</button>
+        </div>
+        
+        <div class="mt-4">
+            <h2 class="h5 mb-3">Resultados</h2>
+            <div class="progress mb-2">
+                <div class="progress-bar" id="progressBar" role="progressbar" style="width: 0%"></div>
+            </div>
+            <p id="progressText" class="text-muted small">0/0 completados</p>
+            <div class="list-group" id="resultsContainer"></div>
+        </div>
+        <div id="statusIndicator" class="badge bg-secondary">Inactivo</div>
+    </div>
+    
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>
